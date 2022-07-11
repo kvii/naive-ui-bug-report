@@ -3,7 +3,7 @@ import { NTree, TreeOption } from "naive-ui";
 import { Ref, ref } from 'vue';
 
 /** 当前选中的 key */
-const checkedKeys: Ref<string[]> = ref([])
+const checkedKeys: Ref<number[]> = ref([])
 
 /** 树形选择数据 */
 const data: Ref<TreeOption[]> = ref(<TreeOption[]>[
@@ -17,18 +17,19 @@ const data: Ref<TreeOption[]> = ref(<TreeOption[]>[
     },
 ])
 
-let currentInnerKey = 3;
+let key = 3;
 
 /** 在组件外添加一条子数据 */
-function insert() {
-    currentInnerKey++;
+function onClick() {
+    key++;
     const value: TreeOption = {
-        key: currentInnerKey,
-        label: `${currentInnerKey} <- 在组件外添加的数据`,
+        key: key,
+        label: `${key} <- 在组件外添加的数据`,
         isLeaf: true,
     }
 
     data.value[0].children!.push(value)
+    checkedKeys.value.push(key) // 手动维护 checkedKeys
 }
 </script>
 
@@ -43,7 +44,7 @@ function insert() {
             :default-expand-all="true"
             v-model:checked-keys="checkedKeys" />
 
-        <button @click="insert">第二步：点击按钮，添加一条子数据</button>
+        <button @click="onClick">第二步：点击按钮，添加一条子数据</button>
 
         <span>期望结果：<code>checkedKeys: [ 1, 2, 3, 4 ]</code></span>
 

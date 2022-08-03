@@ -7,5 +7,3 @@ NTree 组件 bug 汇报。
 运行命令 pnpm dev。
 
 运行后根据 ui 指示操作即可。
-
-![操作回放](replay.gif)
